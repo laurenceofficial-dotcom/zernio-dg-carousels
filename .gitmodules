@@ -1,0 +1,3 @@
+[submodule "fable-power-up"]
+	path = fable-power-up
+	url = https://github.com/gfsaaser24/fable-power-up.git
