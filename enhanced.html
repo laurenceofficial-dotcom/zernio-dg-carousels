@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Zernio DG Carousels</title>
+    <meta name="description" content="Professional interactive carousel with accessibility features, touch support, and modern animations">
+    <link rel="stylesheet" href="css/enhanced-style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enhanced Zernio DG Carousels</h1>
+        <div class="carousel-container" data-carousel="enhanced">
+            <div class="carousel" role="region" aria-label="Featured content carousel">
+                <div class="slide active" role="group" aria-roledescription="slide" aria-label="1 of 4">
+                    <h2>Welcome to Zernio</h2>
+                    <p>Experience the next generation of interactive carousel components with smooth animations, accessibility features, and modern design patterns.</p>
+                </div>
+                <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+                    <h2>Touch & Swipe Enabled</h2>
+                    <p>Navigate seamlessly across devices with full touch support, keyboard navigation, and responsive design that adapts to any screen size.</p>
+                </div>
+                <div class="slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+                    <h2>Accessibility First</h2>
+                    <p>Built with WCAG guidelines in mind, featuring proper ARIA labels, screen reader support, and respect for user motion preferences.</p>
+                </div>
+                <div class="slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+                    <h2>Professional Grade</h2>
+                    <p>Production-ready code with error handling, configuration options, and clean architecture for enterprise applications.</p>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button id="prevBtn" type="button" aria-label="Go to previous slide">← Previous</button>
+                <div class="control-info">
+                    <span class="sr-only">Use arrow keys or swipe to navigate. Press spacebar to pause auto-play.</span>
+                    <small style="color: #666; font-size: 0.9rem;">Arrow keys • Swipe • Spacebar to pause</small>
+                </div>
+                <button id="nextBtn" type="button" aria-label="Go to next slide">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced carousel script -->
+    <script src="src/carousel-enhanced.js"></script>
+
+    <!-- Analytics and performance monitoring can be added here -->
+    <script>
+        // Example: Track carousel interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = window.zernioDGCarousel;
+            if (carousel) {
+                console.log('Enhanced Zernio DG Carousels loaded successfully');
+
+                // Optional: Add custom event tracking
+                carousel.container.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('indicator')) {
+                        console.log('User clicked indicator:', e.target);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

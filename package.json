@@ -1,0 +1,22 @@
+{
+  "name": "zernio-dg-carousels",
+  "version": "1.0.0",
+  "description": "Interactive carousel components for modern web development",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx live-server --port=3000 --open=/index.html",
+    "dev:enhanced": "npx live-server --port=3000 --open=/enhanced.html",
+    "start": "npm run dev",
+    "start:enhanced": "npm run dev:enhanced",
+    "build": "echo \"Build process - minify CSS/JS here\"",
+    "lint": "echo \"Linting files...\"",
+    "format": "echo \"Formatting code...\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["carousel", "slideshow", "web-components", "javascript"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
