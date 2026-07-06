@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zernio DG Carousels - Demo Showcase</title>
+    <meta name="description" content="Interactive demo showcasing all carousel features, themes, and configuration options">
+    <link rel="stylesheet" href="css/enhanced-style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .theme-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .theme-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .theme-btn:hover, .theme-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .carousel-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .controls-panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            min-width: 120px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .control-input {
+            flex: 1;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card h4 {
+            color: white;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .stats-display {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 style="text-align: center; color: white; font-size: 3rem; margin-bottom: 40px; font-weight: 300;">
+            Zernio DG Carousels Demo
+        </h1>
+
+        <!-- Main Demo Carousel -->
+        <div class="demo-section">
+            <h2 class="section-title">Interactive Demo</h2>
+
+            <div class="theme-selector">
+                <button class="theme-btn active" onclick="applyTheme('default')">Default</button>
+                <button class="theme-btn" onclick="applyTheme('minimal')">Minimal</button>
+                <button class="theme-btn" onclick="applyTheme('dark')">Dark</button>
+            </div>
+
+            <div class="carousel-container" data-carousel="enhanced">
+                <div class="carousel" role="region" aria-label="Demo carousel">
+                    <div class="slide active">
+                        <h2>🎨 Theme Showcase</h2>
+                        <p>Switch between different visual themes using the buttons above. Each theme provides a unique aesthetic while maintaining full functionality.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>📱 Touch & Swipe</h2>
+                        <p>Try swiping on mobile devices or using arrow keys on desktop. The carousel responds seamlessly to all input methods.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>♿ Accessibility</h2>
+                        <p>Built with WCAG 2.1 AA compliance. Screen readers announce slide changes and all controls are keyboard accessible.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>⚙️ Configurable</h2>
+                        <p>Extensive configuration options allow you to customize timing, animations, controls, and behavior to match your needs.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>🚀 Performance</h2>
+                        <p>Optimized for smooth 60fps animations using CSS3 hardware acceleration and efficient event handling.</p>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button id="prevBtn" type="button">← Previous</button>
+                    <div style="color: #666; font-size: 0.9rem;">
+                        <span id="slideCounter">1 / 5</span>
+                    </div>
+                    <button id="nextBtn" type="button">Next →</button>
+                </div>
+            </div>
+
+            <!-- Real-time Controls -->
+            <div class="controls-panel">
+                <h3 style="color: white; margin-bottom: 15px; text-align: center;">Live Configuration</h3>
+
+                <div class="control-group">
+                    <label class="control-label">Auto-play Speed:</label>
+                    <div class="control-input">
+                        <input type="range" id="speedSlider" min="1000" max="8000" value="4000" step="500">
+                        <span id="speedValue" style="color: white; margin-left: 10px;">4.0s</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Auto-play:</label>
+                    <input type="checkbox" id="autoPlayToggle" checked>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Show Progress:</label>
+                    <input type="checkbox" id="progressToggle" checked>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Show Indicators:</label>
+                    <input type="checkbox" id="indicatorsToggle" checked>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Overview -->
+        <div class="demo-section">
+            <h2 class="section-title">Feature Overview</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🎯 Navigation</h4>
+                    <p>Multiple navigation methods: buttons, keyboard arrows, touch swipe, and dot indicators</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⏯️ Auto-play</h4>
+                    <p>Configurable auto-advance with pause on hover and manual toggle controls</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📱 Responsive</h4>
+                    <p>Adapts seamlessly to all screen sizes with optimized layouts and touch targets</p>
+                </div>
+                <div class="feature-card">
+                    <h4>♿ Accessible</h4>
+                    <p>WCAG 2.1 AA compliant with screen reader support and keyboard navigation</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎨 Themeable</h4>
+                    <p>Multiple built-in themes with CSS custom properties for easy customization</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ Performant</h4>
+                    <p>Hardware-accelerated animations and efficient event handling for smooth operation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Statistics -->
+        <div class="demo-section">
+            <h2 class="section-title">Live Statistics</h2>
+            <div class="stats-display">
+                <div class="stat-item">
+                    <span class="stat-value" id="slideCount">5</span>
+                    <span class="stat-label">Total Slides</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="viewCount">0</span>
+                    <span class="stat-label">Slide Views</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="interactionCount">0</span>
+                    <span class="stat-label">Interactions</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include both configuration and enhanced carousel -->
+    <script src="src/config.js"></script>
+    <script src="src/carousel-enhanced.js"></script>
+
+    <script>
+        // Demo-specific functionality
+        let carousel;
+        let viewCount = 0;
+        let interactionCount = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            carousel = window.zernioDGCarousel;
+
+            if (carousel) {
+                setupDemoControls();
+                setupEventTracking();
+                updateSlideCounter();
+            }
+        });
+
+        function applyTheme(themeName) {
+            // Update active button
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Apply theme using config utility
+            ConfigUtils.applyTheme(themeName);
+        }
+
+        function setupDemoControls() {
+            const speedSlider = document.getElementById('speedSlider');
+            const speedValue = document.getElementById('speedValue');
+            const autoPlayToggle = document.getElementById('autoPlayToggle');
+            const progressToggle = document.getElementById('progressToggle');
+            const indicatorsToggle = document.getElementById('indicatorsToggle');
+
+            // Speed control
+            speedSlider.addEventListener('input', (e) => {
+                const speed = parseInt(e.target.value);
+                speedValue.textContent = (speed / 1000).toFixed(1) + 's';
+                carousel.config.autoPlayDelay = speed;
+
+                if (carousel.isPlaying) {
+                    carousel.pauseAutoPlay();
+                    carousel.startAutoPlay();
+                }
+            });
+
+            // Auto-play toggle
+            autoPlayToggle.addEventListener('change', (e) => {
+                carousel.config.autoPlay = e.target.checked;
+                if (e.target.checked) {
+                    carousel.startAutoPlay();
+                } else {
+                    carousel.pauseAutoPlay();
+                }
+            });
+
+            // Progress bar toggle
+            progressToggle.addEventListener('change', (e) => {
+                const progressBar = document.querySelector('.carousel-progress');
+                if (progressBar) {
+                    progressBar.style.display = e.target.checked ? 'block' : 'none';
+                }
+            });
+
+            // Indicators toggle
+            indicatorsToggle.addEventListener('change', (e) => {
+                const indicators = document.querySelector('.carousel-indicators');
+                if (indicators) {
+                    indicators.style.display = e.target.checked ? 'flex' : 'none';
+                }
+            });
+        }
+
+        function setupEventTracking() {
+            // Track slide changes
+            carousel.container.addEventListener('transitionend', () => {
+                viewCount++;
+                document.getElementById('viewCount').textContent = viewCount;
+                updateSlideCounter();
+            });
+
+            // Track interactions
+            ['click', 'touchstart', 'keydown'].forEach(eventType => {
+                document.addEventListener(eventType, (e) => {
+                    if (e.target.closest('.carousel-container')) {
+                        interactionCount++;
+                        document.getElementById('interactionCount').textContent = interactionCount;
+                    }
+                });
+            });
+        }
+
+        function updateSlideCounter() {
+            const counter = document.getElementById('slideCounter');
+            if (counter && carousel) {
+                counter.textContent = `${carousel.currentSlide + 1} / ${carousel.totalSlides}`;
+            }
+        }
+    </script>
+</body>
+</html>

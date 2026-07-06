@@ -6,9 +6,13 @@
   "scripts": {
     "dev": "npx live-server --port=3000 --open=/index.html",
     "dev:enhanced": "npx live-server --port=3000 --open=/enhanced.html",
+    "dev:demo": "npx live-server --port=3000 --open=/demo.html",
     "start": "npm run dev",
     "start:enhanced": "npm run dev:enhanced",
-    "build": "echo \"Build process - minify CSS/JS here\"",
+    "start:demo": "npm run dev:demo",
+    "build": "mkdir -p dist && cp -r css js src *.html package.json dist/",
+    "build:prod": "npm run build && echo \"Production build complete in dist/\"",
+    "serve:prod": "npx live-server dist --port=3001",
     "lint": "echo \"Linting files...\"",
     "format": "echo \"Formatting code...\"",
     "test": "echo \"Error: no test specified\" && exit 1"
