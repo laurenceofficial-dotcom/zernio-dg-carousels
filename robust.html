@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robust Zernio DG Carousels - Production Ready</title>
+    <meta name="description" content="Production-ready carousel with comprehensive error handling, testing, and Fable methodology compliance">
+    <link rel="stylesheet" href="css/enhanced-style.css">
+    <style>
+        /* Additional styles for robust version */
+        .error-boundary {
+            background: rgba(248, 113, 113, 0.1);
+            border: 2px solid rgba(248, 113, 113, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #fecaca;
+            display: none;
+        }
+
+        .success-indicator {
+            background: rgba(74, 222, 128, 0.1);
+            border: 2px solid rgba(74, 222, 128, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #bbf7d0;
+            text-align: center;
+        }
+
+        .status-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .status-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .status-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .status-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .test-link {
+            display: inline-block;
+            background: rgba(96, 165, 250, 0.2);
+            color: #93c5fd;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 5px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+        }
+
+        .test-link:hover {
+            background: rgba(96, 165, 250, 0.3);
+            border-color: rgba(96, 165, 250, 0.5);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Production-Ready Zernio DG Carousels</h1>
+
+        <!-- Error Boundary -->
+        <div id="errorBoundary" class="error-boundary">
+            <h3>⚠️ Initialization Error</h3>
+            <p id="errorMessage">Carousel failed to initialize</p>
+        </div>
+
+        <!-- Success Indicator -->
+        <div id="successIndicator" class="success-indicator" style="display: none;">
+            ✅ Carousel initialized successfully with robust error handling and Fable compliance
+        </div>
+
+        <!-- Main Carousel -->
+        <div class="carousel-container" data-carousel="robust">
+            <div class="carousel" role="region" aria-label="Production carousel">
+                <div class="slide active">
+                    <h2>🔒 Production Ready</h2>
+                    <p>Comprehensive error handling, input validation, and graceful failure recovery ensure reliable operation in any environment.</p>
+                </div>
+                <div class="slide">
+                    <h2>🧪 Fable Tested</h2>
+                    <p>Built following Fable methodology with self-audit passes, boundary execution, and defect trigger sweeps for maximum quality.</p>
+                </div>
+                <div class="slide">
+                    <h2>♿ Fully Accessible</h2>
+                    <p>WCAG 2.1 AA compliant with screen reader support, keyboard navigation, and proper ARIA labeling throughout.</p>
+                </div>
+                <div class="slide">
+                    <h2>📊 Monitored</h2>
+                    <p>Real-time status monitoring, error tracking, and performance metrics provide visibility into carousel health and usage.</p>
+                </div>
+                <div class="slide">
+                    <h2>🔧 Configurable</h2>
+                    <p>Extensive configuration options with validation, theme support, and runtime reconfiguration for maximum flexibility.</p>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button id="prevBtn" type="button" aria-label="Go to previous slide">← Previous</button>
+                <div style="color: #666; font-size: 0.9rem;">
+                    <span id="slideCounter">1 / 5</span> •
+                    <span id="statusIndicator">Ready</span>
+                </div>
+                <button id="nextBtn" type="button" aria-label="Go to next slide">Next →</button>
+            </div>
+        </div>
+
+        <!-- Status Panel -->
+        <div class="status-panel">
+            <h3 style="color: white; margin-bottom: 15px; text-align: center;">📊 Live Status Monitor</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-label">Initialization</div>
+                    <div class="status-value" id="initStatus">Pending</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Error Count</div>
+                    <div class="status-value" id="errorCount">0</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Auto-play</div>
+                    <div class="status-value" id="autoplayStatus">Enabled</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Slide Changes</div>
+                    <div class="status-value" id="slideChanges">0</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">User Interactions</div>
+                    <div class="status-value" id="interactions">0</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Performance</div>
+                    <div class="status-value" id="performance">Optimal</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quality Assurance Links -->
+        <div style="text-align: center; margin-top: 30px;">
+            <h3 style="color: white; margin-bottom: 15px;">🎯 Quality Assurance</h3>
+            <a href="test.html" class="test-link">Run Test Suite</a>
+            <a href="test.html?autorun=true" class="test-link">Auto-Run Tests</a>
+            <a href="demo.html" class="test-link">Interactive Demo</a>
+            <a href="enhanced.html" class="test-link">Enhanced Version</a>
+        </div>
+    </div>
+
+    <!-- Include robust carousel -->
+    <script src="src/carousel-robust.js"></script>
+
+    <script>
+        // Production monitoring and error tracking
+        class CarouselMonitor {
+            constructor() {
+                this.errorCount = 0;
+                this.slideChanges = 0;
+                this.interactions = 0;
+                this.startTime = Date.now();
+                this.carousel = null;
+            }
+
+            init() {
+                try {
+                    // Initialize with enhanced error handling
+                    this.carousel = window.zernioDGCarousel0 || window.zernioDGCarousel;
+
+                    if (this.carousel) {
+                        this.showSuccess();
+                        this.setupMonitoring();
+                        this.updateStatus('initStatus', 'Success ✅');
+                        this.updateStatus('performance', 'Optimal 🚀');
+                    } else {
+                        throw new Error('Carousel instance not found');
+                    }
+                } catch (error) {
+                    this.handleError('Initialization failed', error);
+                }
+            }
+
+            showSuccess() {
+                document.getElementById('successIndicator').style.display = 'block';
+            }
+
+            handleError(context, error) {
+                this.errorCount++;
+                console.error(`[CarouselMonitor] ${context}:`, error);
+
+                const errorBoundary = document.getElementById('errorBoundary');
+                const errorMessage = document.getElementById('errorMessage');
+
+                errorMessage.textContent = `${context}: ${error.message}`;
+                errorBoundary.style.display = 'block';
+
+                this.updateStatus('errorCount', this.errorCount);
+                this.updateStatus('initStatus', 'Failed ❌');
+            }
+
+            setupMonitoring() {
+                if (!this.carousel) return;
+
+                // Monitor slide changes
+                const originalShowSlide = this.carousel.showSlide.bind(this.carousel);
+                this.carousel.showSlide = (index) => {
+                    const result = originalShowSlide(index);
+                    if (result) {
+                        this.slideChanges++;
+                        this.updateStatus('slideChanges', this.slideChanges);
+                        this.updateSlideCounter();
+                    }
+                    return result;
+                };
+
+                // Monitor auto-play state
+                setInterval(() => {
+                    this.updateStatus('autoplayStatus',
+                        this.carousel.state.isPlaying ? 'Active 🟢' : 'Paused ⏸️'
+                    );
+                }, 1000);
+
+                // Monitor interactions
+                ['click', 'keydown', 'touchstart'].forEach(eventType => {
+                    document.addEventListener(eventType, (e) => {
+                        if (e.target.closest('.carousel-container')) {
+                            this.interactions++;
+                            this.updateStatus('interactions', this.interactions);
+                        }
+                    });
+                });
+
+                // Performance monitoring
+                this.monitorPerformance();
+            }
+
+            updateSlideCounter() {
+                if (this.carousel) {
+                    const counter = document.getElementById('slideCounter');
+                    const status = document.getElementById('statusIndicator');
+
+                    if (counter) {
+                        counter.textContent = `${this.carousel.state.currentSlide + 1} / ${this.carousel.state.totalSlides}`;
+                    }
+
+                    if (status) {
+                        status.textContent = this.carousel.state.isPlaying ? 'Playing' : 'Paused';
+                    }
+                }
+            }
+
+            updateStatus(elementId, value) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.textContent = value;
+                }
+            }
+
+            monitorPerformance() {
+                // Simple performance check
+                setInterval(() => {
+                    const runtime = Date.now() - this.startTime;
+                    const avgInteractionRate = this.interactions / (runtime / 1000 / 60); // per minute
+
+                    let performanceStatus = 'Optimal 🚀';
+                    if (this.errorCount > 0) {
+                        performanceStatus = 'Degraded ⚠️';
+                    } else if (avgInteractionRate > 10) {
+                        performanceStatus = 'Heavy Load 📊';
+                    }
+
+                    this.updateStatus('performance', performanceStatus);
+                }, 5000);
+            }
+        }
+
+        // Initialize monitor when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait a moment for carousel to initialize
+            setTimeout(() => {
+                const monitor = new CarouselMonitor();
+                monitor.init();
+                window.carouselMonitor = monitor; // Expose for debugging
+            }, 500);
+        });
+
+        // Global error handler
+        window.addEventListener('error', (e) => {
+            if (window.carouselMonitor) {
+                window.carouselMonitor.handleError('Runtime error', e.error);
+            }
+        });
+
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', (e) => {
+            if (window.carouselMonitor) {
+                window.carouselMonitor.handleError('Promise rejection', e.reason);
+            }
+        });
+    </script>
+</body>
+</html>

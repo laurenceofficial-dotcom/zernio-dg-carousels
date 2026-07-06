@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zernio DG Carousels - Test Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        .test-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+        }
+
+        .results-panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .results-summary {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .passed { color: #4ade80; }
+        .failed { color: #f87171; }
+        .total { color: #60a5fa; }
+
+        #testOutput {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #60a5fa;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-card li {
+            padding: 5px 0;
+            opacity: 0.9;
+        }
+
+        .feature-card li:before {
+            content: "✓ ";
+            color: #4ade80;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.7;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="header">
+            <h1>🧪 Carousel Test Suite</h1>
+            <p>Comprehensive testing based on Fable methodology - Production readiness verification</p>
+        </div>
+
+        <div class="test-controls">
+            <button class="btn primary" onclick="runTests()">Run All Tests</button>
+            <button class="btn" onclick="clearResults()">Clear Results</button>
+            <a href="index.html" class="btn">Basic Carousel</a>
+            <a href="enhanced.html" class="btn">Enhanced Carousel</a>
+            <a href="demo.html" class="btn">Interactive Demo</a>
+        </div>
+
+        <div class="results-panel">
+            <div class="results-summary" id="resultsSummary" style="display: none;">
+                <div class="stat-box">
+                    <div class="stat-number passed" id="passedCount">0</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number failed" id="failedCount">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number total" id="totalCount">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+
+            <div id="testOutput" class="loading">
+                <div>Ready to run tests...</div>
+                <div style="margin-top: 10px; opacity: 0.6;">
+                    Click "Run All Tests" to execute the comprehensive test suite
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🔍 Fable Methodology</h3>
+                <ul>
+                    <li>Self-audit passes (cold re-read, value trace)</li>
+                    <li>Exit enumeration and error classification</li>
+                    <li>Boundary execution (limit-1, at, limit+1)</li>
+                    <li>Contract validation vs implementation</li>
+                    <li>Defect trigger sweep</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🏗️ Test Categories</h3>
+                <ul>
+                    <li>Tier 1: Constructor error cases</li>
+                    <li>Tier 2: Boundary and edge cases</li>
+                    <li>Tier 3: Happy path integration</li>
+                    <li>Error recovery and cleanup</li>
+                    <li>Accessibility compliance</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>⚡ Performance Tests</h3>
+                <ul>
+                    <li>Auto-play timing validation</li>
+                    <li>Touch/swipe threshold precision</li>
+                    <li>Memory leak detection</li>
+                    <li>Event listener cleanup</li>
+                    <li>DOM manipulation efficiency</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>♿ Accessibility Tests</h3>
+                <ul>
+                    <li>ARIA attributes validation</li>
+                    <li>Screen reader announcements</li>
+                    <li>Keyboard navigation</li>
+                    <li>Focus management</li>
+                    <li>Live region updates</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the robust carousel and test suite -->
+    <script src="src/carousel-robust.js"></script>
+    <script src="test/carousel.test.js"></script>
+
+    <script>
+        // Test runner interface
+        let testResults = null;
+
+        async function runTests() {
+            const output = document.getElementById('testOutput');
+            const summary = document.getElementById('resultsSummary');
+
+            // Show loading state
+            output.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div style="margin-top: 15px;">Running comprehensive test suite...</div>
+                    <div style="margin-top: 5px; opacity: 0.6; font-size: 0.8rem;">This may take a few seconds</div>
+                </div>
+            `;
+
+            summary.style.display = 'none';
+
+            try {
+                // Capture console output
+                const originalLog = console.log;
+                const originalError = console.error;
+                let testOutput = '';
+
+                console.log = (...args) => {
+                    testOutput += args.join(' ') + '\n';
+                    originalLog.apply(console, args);
+                };
+
+                console.error = (...args) => {
+                    testOutput += 'ERROR: ' + args.join(' ') + '\n';
+                    originalError.apply(console, args);
+                };
+
+                // Run the tests
+                testResults = await window.CarouselTestRunner.run();
+
+                // Restore console
+                console.log = originalLog;
+                console.error = originalError;
+
+                // Display results
+                output.textContent = testOutput;
+
+                // Update summary
+                document.getElementById('passedCount').textContent = testResults.passed;
+                document.getElementById('failedCount').textContent = testResults.failed;
+                document.getElementById('totalCount').textContent = testResults.passed + testResults.failed;
+
+                summary.style.display = 'flex';
+
+                // Add final status
+                const status = testResults.failed === 0 ?
+                    '\n🎉 All tests passed! Carousel is production ready.' :
+                    `\n⚠️  ${testResults.failed} test(s) failed. Review issues above.`;
+
+                output.textContent += status;
+
+            } catch (error) {
+                output.textContent = `❌ Test runner error: ${error.message}\n\nStack trace:\n${error.stack}`;
+                console.error('Test runner failed:', error);
+            }
+        }
+
+        function clearResults() {
+            const output = document.getElementById('testOutput');
+            const summary = document.getElementById('resultsSummary');
+
+            output.innerHTML = `
+                <div>Ready to run tests...</div>
+                <div style="margin-top: 10px; opacity: 0.6;">
+                    Click "Run All Tests" to execute the comprehensive test suite
+                </div>
+            `;
+
+            summary.style.display = 'none';
+            testResults = null;
+        }
+
+        // Auto-run tests if URL parameter is present
+        if (new URLSearchParams(window.location.search).get('autorun') === 'true') {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(runTests, 500);
+            });
+        }
+
+        // Keyboard shortcut to run tests
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                runTests();
+            }
+        });
+    </script>
+</body>
+</html>
